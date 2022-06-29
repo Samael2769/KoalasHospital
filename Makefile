@@ -3,9 +3,27 @@ INC_DIR 	= ./includes/
 
 SRC_DIR 	= ./sources/
 
+ENC_DIR		= Encapsulated/
+
+CLASS_DIR	= Classes/
+
 ############################FILES:#########################
 
-SRC_FILES 	= \
+
+SRC_ENC		= Fork.cpp		\
+			  Mutex.cpp 	\
+			  ThreadPool.cpp\
+
+SRC_CLASS	= Doctor.cpp	\
+			  Hospital.cpp	\
+			  Nurse.cpp		\
+			  Patient.cpp	\
+			  Rooms.cpp		\
+
+
+
+SRC_FILES 	= $(addprefix $(ENC_DIR), $(SRC_ENC)) 		\
+		      $(addprefix $(CLASS_DIR), $(SRC_CLASS)) 	\
 
 SRC_FMAIN	= main.cpp	\
 
@@ -33,9 +51,7 @@ ECHO		= echo
 
 ###########################################################
 
-CXXFLAGS 	= -Wall
-
-LDFLAGS		= -Iincludes
+CXXFLAGS 	= -Wall -Iincludes
 
 NAME		= KoalaHospital
 
