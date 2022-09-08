@@ -13,12 +13,14 @@ CLASS_DIR	= Classes/
 SRC_ENC		= Fork.cpp		\
 			  Mutex.cpp 	\
 			  ThreadPool.cpp\
+			  MsgQueue.cpp	\
 
 SRC_CLASS	= Doctor.cpp	\
 			  Hospital.cpp	\
 			  Nurse.cpp		\
 			  Patient.cpp	\
 			  Rooms.cpp		\
+			  Deases.cpp	\
 
 
 
@@ -51,7 +53,7 @@ ECHO		= echo
 
 ###########################################################
 
-CXXFLAGS 	= -Wall -Iincludes
+CXXFLAGS 	= -Wall -Iincludes -g3
 
 NAME		= KoalaHospital
 
