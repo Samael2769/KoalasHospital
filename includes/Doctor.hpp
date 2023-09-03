@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 2023-09-04 07:04:12
  * @ Modified by: Samael
- * @ Modified time: 2023-09-04 07:07:09
+ * @ Modified time: 2023-09-04 07:24:50
  * @ Description:
  */
 
@@ -24,3 +24,5 @@ class Doctor {
     private:
         std::string _name;
 };
+
+#endif /* !DOCTOR_HPP */s
