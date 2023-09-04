@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 2023-09-04 07:04:03
  * @ Modified by: Samael
- * @ Modified time: 2023-09-04 07:05:55
+ * @ Modified time: 2023-09-04 10:53:02
  * @ Description:
  */
 
@@ -11,6 +11,20 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
+
+typedef enum symptoms {
+    FEVER,
+    COUGH,
+    HEADACHE,
+    STOMACHACHE,
+    LEG_PAIN,
+    DEPRESSION,
+    DIZZINESS,
+    VOMITING,
+    DIARRHEA,
+    BURNING_EYES,
+} symptoms_t;
 
 class Deases {
     public:
@@ -21,6 +35,7 @@ class Deases {
     protected:
     private:
         std::string _name;
+        std::vector<symptoms_t> _symptoms;
 };
 
 #endif /* !DEASES_HPP */
