@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 2023-09-04 07:03:56
  * @ Modified by: Samael
- * @ Modified time: 2023-09-04 07:07:47
+ * @ Modified time: 2023-09-05 22:07:40
  * @ Description:
  */
 
@@ -19,8 +19,7 @@ class Nurse {
         ~Nurse();
         std::string const &getName() const;
         void setName(std::string const &name);
-        void giveDrug(std::string const &drug, Patient &patient) const;
-        void readReport(std::string const &report) const;
+        void giveDrug(symptoms_t symp, Patient &patient) const;
     protected:
     private:
         std::string _name;

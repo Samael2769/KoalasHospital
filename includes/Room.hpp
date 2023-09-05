@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 2023-09-04 07:04:34
  * @ Modified by: Samael
- * @ Modified time: 2023-09-04 07:13:34
+ * @ Modified time: 2023-09-05 21:28:50
  * @ Description:
  */
 
@@ -12,7 +12,6 @@
 #include <iostream>
 #include <string>
 #include "Doctor.hpp"
-#include "Nurse.hpp"
 
 class Room {
     public:

@@ -12,6 +12,11 @@ TEST_DIR		=	tests/
 LIB_DIR			=	lib/sm_libc/
 
 SRC_FILES		=	KoalaHospital.cpp			\
+					Patient.cpp					\
+					Doctor.cpp					\
+					Nurse.cpp					\
+					Room.cpp					\
+					Deases.cpp					\
 
 SRC_FILES_MAIN	=	main.cpp			\
 
@@ -52,7 +57,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(OBJ_MAIN)
 	@$(PRNT) -e "\e[0;31m Compiling ${NAME}... \e[0m"
-	$(CC) -o $(NAME) $(OBJ) $(OBJ_MAIN)
+	$(CC) -o $(NAME) -fno-stack-protector $(OBJ) $(OBJ_MAIN)
 
 make_lib:
 	@$(PRNT) -e "\e[0;31m Making lib $(LIB_DIR)... \e[0m"
