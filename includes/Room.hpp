@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 2023-09-04 07:04:34
  * @ Modified by: Samael
- * @ Modified time: 2023-09-05 21:28:50
+ * @ Modified time: 2023-09-06 07:56:18
  * @ Description:
  */
 
@@ -20,6 +20,9 @@ class Room {
     protected:
     private:
         int _id;
+        std::vector<Doctor> _doctors;
+        std::vector<Patient> _patients;
+        std::vector<Nurse> _nurses;
 };
 
 #endif /* !ROOM_HPP */

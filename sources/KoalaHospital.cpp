@@ -7,19 +7,31 @@
 
 #include "KoalaHospital.hpp"
 #include "cmath"
+#include <unistd.h>
 
 KoalaHospital::KoalaHospital()
 {
-    srand(time(NULL));
-    Patient patient = Patient("Bob");
-    Doctor doctor = Doctor("House");
-    std::vector<symptoms_t> knownSymptoms = {COUGH, HEADACHE, STOMACHACHE, DEPRESSION};
-    symptoms_t symp = doctor.diagnose(patient, knownSymptoms);
-    Nurse nurse = Nurse("Josiane");
-    nurse.giveDrug(symp, patient);
+    nbRooms = 2;
+    roomIndex = 0;
 }
 
 KoalaHospital::~KoalaHospital()
 {
     
+}
+
+void KoalaHospital::run()
+{
+    for (int i = 0; i < nbRooms; i++) {
+        std::thread *thread = new std::thread(&KoalaHospital::startThread, this);
+        threads.push_back(thread);
+        usleep(100);
+        roomIndex++;
+    }
+}
+
+void KoalaHospital::startThread()
+{
+    std::cout << "Thread " << roomIndex << " created" << std::endl;
+    Room room(roomIndex);
 }
