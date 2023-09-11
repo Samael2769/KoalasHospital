@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 2023-09-04 07:04:48
  * @ Modified by: Samael
- * @ Modified time: 2023-09-05 22:07:35
+ * @ Modified time: 2023-09-12 08:23:44
  * @ Description:
  */
 
@@ -10,6 +10,7 @@
 
 Nurse::Nurse(std::string const &name) : _name(name)
 {
+    std::cout << "Nurse " << _name << " created" << std::endl;
 }
 
 Nurse::~Nurse()

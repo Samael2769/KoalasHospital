@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 2023-09-04 07:04:59
  * @ Modified by: Samael
- * @ Modified time: 2023-09-05 22:15:44
+ * @ Modified time: 2023-09-12 08:23:39
  * @ Description:
  */
 
@@ -10,6 +10,7 @@
 
 Doctor::Doctor(std::string const &name) : _name(name)
 {
+    std::cout << "Doctor " << _name << " created" << std::endl;
 }
 
 Doctor::~Doctor()

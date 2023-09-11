@@ -28,10 +28,14 @@ void KoalaHospital::run()
         usleep(100);
         roomIndex++;
     }
+    for (int i = 0; i < nbRooms; i++) {
+        threads[i]->join();
+    }
 }
 
 void KoalaHospital::startThread()
 {
     std::cout << "Thread " << roomIndex << " created" << std::endl;
     Room room(roomIndex);
+    room.run();
 }
