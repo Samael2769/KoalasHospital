@@ -14,6 +14,7 @@
 #include <utility>
 #include <thread>
 #include "Room.hpp"
+#include <mutex>
 
 class KoalaHospital {
     public:
@@ -27,6 +28,9 @@ class KoalaHospital {
         int roomIndex;
         std::vector<symptoms_t> knownSymptoms;
         std::vector<std::thread *> threads;
+        std::vector<Patient> patients;
+        //mutex
+        std::mutex mutex;
 };
 
 #endif /* !KOALAHOSPITAL_HPP_ */

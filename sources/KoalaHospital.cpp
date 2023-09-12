@@ -8,6 +8,7 @@
 #include "KoalaHospital.hpp"
 #include "cmath"
 #include <unistd.h>
+#include <time.h>
 
 KoalaHospital::KoalaHospital()
 {
@@ -28,8 +29,15 @@ void KoalaHospital::run()
         usleep(100);
         roomIndex++;
     }
-    for (int i = 0; i < nbRooms; i++) {
-        threads[i]->join();
+    patients.push_back(Patient("Patient 1"));
+    patients.push_back(Patient("Patient 2"));
+    patients.push_back(Patient("Patient 3"));
+    while (patients.size() > 0) {
+        usleep(1000000);
+        std::cout << "Patients waiting:" << std::endl;
+        for (int i = 0; i < patients.size(); i++) {
+            std::cout << patients[i].getName() << std::endl;
+        }
     }
 }
 
@@ -37,5 +45,14 @@ void KoalaHospital::startThread()
 {
     std::cout << "Thread " << roomIndex << " created" << std::endl;
     Room room(roomIndex);
-    room.run();
+    while (true) {
+        usleep(1000000);
+        if (patients.size() > 0) {
+            mutex.lock();
+            room.addPatient(patients[0]);
+            patients.erase(patients.begin());
+            mutex.unlock();
+        }
+        room.run(); 
+    }
 }

@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 2023-09-04 07:04:34
  * @ Modified by: Samael
- * @ Modified time: 2023-09-11 07:36:59
+ * @ Modified time: 2023-09-13 07:08:33
  * @ Description:
  */
 
@@ -18,6 +18,7 @@ class Room {
         Room(int id);
         ~Room();
         void run();
+        void addPatient(Patient &patient);
     protected:
     private:
         int _id;
