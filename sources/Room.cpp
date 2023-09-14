@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 2023-09-04 07:05:08
  * @ Modified by: Samael
- * @ Modified time: 2023-09-14 22:08:27
+ * @ Modified time: 2023-09-14 22:15:20
  * @ Description:
  */
 
@@ -27,7 +27,8 @@ void Room::run()
     if (_patients.size() > 0) {
         if (_nurses[0].giveVaccin(_knownSymptoms, _patients[0]) == true) {  
             _patients.erase(_patients.begin());
-            std::cout << "Room " << _id << ": Patient cured" << std::endl;
+            std::cout << "Room " << _id << ": Patient vaccined" << std::endl;
+            return;
         }
         symptoms_t symp = _doctors[0].diagnose(_patients[0], _knownSymptoms);
         if (_nurses[0].giveDrug(symp, _patients[0]) == true) {  
