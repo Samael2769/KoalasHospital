@@ -11,6 +11,6 @@
 int main()
 {
     std::cout << "Hello World!" << std::endl;
-    KoalaHospital hospital = KoalaHospital();
+    KoalaHospital hospital;
     hospital.run();
 }

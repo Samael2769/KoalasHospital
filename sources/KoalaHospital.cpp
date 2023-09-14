@@ -39,6 +39,9 @@ void KoalaHospital::run()
             std::cout << patients[i].getName() << std::endl;
         }
     }
+    for (int i = 0; i < threads.size(); i++) {
+        threads[i]->join();
+    }
 }
 
 void KoalaHospital::startThread()

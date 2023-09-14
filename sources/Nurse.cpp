@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 2023-09-04 07:04:48
  * @ Modified by: Samael
- * @ Modified time: 2023-09-12 08:23:44
+ * @ Modified time: 2023-09-14 22:06:10
  * @ Description:
  */
 
@@ -27,7 +27,12 @@ void Nurse::setName(std::string const &name)
     _name = name;
 }
 
-void Nurse::giveDrug(symptoms_t symp, Patient &patient) const
+bool Nurse::giveDrug(symptoms_t symp, Patient &patient) const
 {
-    patient.takeDrug(symp);
+    return patient.takeDrug(symp);
+}
+
+bool Nurse::giveVaccin(std::vector<symptoms_t> knownSymptoms, Patient &patient)
+{
+    return patient.checkKnownSymptoms(knownSymptoms);
 }

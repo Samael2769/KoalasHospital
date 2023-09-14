@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 2023-09-04 07:04:34
  * @ Modified by: Samael
- * @ Modified time: 2023-09-13 07:08:33
+ * @ Modified time: 2023-09-14 21:53:51
  * @ Description:
  */
 
@@ -25,6 +25,7 @@ class Room {
         std::vector<Doctor> _doctors;
         std::vector<Patient> _patients;
         std::vector<Nurse> _nurses;
+        std::vector<symptoms_t> _knownSymptoms;
 };
 
 #endif /* !ROOM_HPP */
