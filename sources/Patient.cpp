@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 2023-09-04 07:04:42
  * @ Modified by: Samael
- * @ Modified time: 2023-09-05 22:16:47
+ * @ Modified time: 2023-09-14 22:11:53
  * @ Description:
  */
 
@@ -42,7 +42,7 @@ bool Patient::takeDrug(symptoms_t symp)
     }
 }
 
-void Patient::checkKnownSymptoms(std::vector<symptoms_t> knownSymptoms)
+bool Patient::checkKnownSymptoms(std::vector<symptoms_t> knownSymptoms)
 {
-    _deases->checkSymptoms(knownSymptoms);
+    return _deases->checkSymptoms(knownSymptoms);
 }
