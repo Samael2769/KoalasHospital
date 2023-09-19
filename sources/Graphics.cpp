@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 1970-01-01 09:00:00
  * @ Modified by: Samael
- * @ Modified time: 2023-09-19 11:05:36
+ * @ Modified time: 2023-09-19 11:07:39
  * @ Description:
  */
 
@@ -76,6 +76,9 @@ void Graphics::draw(sf::RenderWindow &window)
 
         // Change the position of the room
         _rooms[i].sprite->setPosition(col * roomSizeX, row * roomSizeY);
+        _rooms[i].text->setPosition(col * roomSizeX, row * roomSizeY);
+        _rooms[i].x = col * roomSizeX;
+        _rooms[i].y = row * roomSizeY;
 
         // Draw the room sprite and text
         window.draw(*_rooms[i].sprite);
