@@ -24,9 +24,10 @@ KoalaHospital::~KoalaHospital()
 void KoalaHospital::run()
 {
     Graphics graphics;
+    _graphics = &graphics;
     for (int i = 0; i < nbRooms; i++) {
         std::thread *thread = new std::thread(&KoalaHospital::startThread, this);
-        graphics.createRoom("Room " + std::to_string(roomIndex), roomIndex, 0);
+        _graphics->createRoom("Room " + std::to_string(roomIndex), roomIndex, 0);
         threads.push_back(thread);
         usleep(100);
         roomIndex++;
@@ -34,7 +35,7 @@ void KoalaHospital::run()
     patients.push_back(Patient("Patient 1"));
     patients.push_back(Patient("Patient 2"));
     patients.push_back(Patient("Patient 3"));
-    graphics.run();
+    _graphics->run();
     for (int i = 0; i < threads.size(); i++) {
         threads[i]->join();
     }
@@ -44,6 +45,8 @@ void KoalaHospital::startThread()
 {
     std::cout << "Thread " << roomIndex << " created" << std::endl;
     Room room(roomIndex);
+    room.setGraphics(_graphics);
+    room.init();
     while (true) {
         usleep(1000000);
         mutex.lock();

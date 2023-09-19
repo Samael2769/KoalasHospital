@@ -2,11 +2,10 @@
  * @ Author: Samael
  * @ Create Time: 1970-01-01 09:00:00
  * @ Modified by: Samael
- * @ Modified time: 2023-09-19 10:36:06
+ * @ Modified time: 2023-09-20 07:52:27
  * @ Description:
  */
 
-#include "Room.hpp"
 #include <unistd.h>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
@@ -20,6 +19,7 @@ class Graphics {
         void run();
         void draw(sf::RenderWindow &window);
         void createRoom(std::string name, int x, int y);
+        void createPeople(std::string name, std::string status, std::string room, int x, int y);
         typedef struct room_s {
             sf::Texture *texture;
             sf::Sprite *sprite;

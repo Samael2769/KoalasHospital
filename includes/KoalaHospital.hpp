@@ -13,7 +13,7 @@
 #include <vector>
 #include <utility>
 #include <thread>
-#include "Graphics.hpp"
+#include "Room.hpp"
 #include <mutex>
 
 class KoalaHospital {
@@ -31,6 +31,7 @@ class KoalaHospital {
         std::vector<Patient> patients;
         //mutex
         std::mutex mutex;
+        Graphics *_graphics;
 };
 
 #endif /* !KOALAHOSPITAL_HPP_ */

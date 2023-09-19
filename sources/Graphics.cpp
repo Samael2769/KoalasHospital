@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 1970-01-01 09:00:00
  * @ Modified by: Samael
- * @ Modified time: 2023-09-19 11:07:39
+ * @ Modified time: 2023-09-20 08:00:03
  * @ Description:
  */
 
@@ -87,9 +87,18 @@ void Graphics::draw(sf::RenderWindow &window)
 
     // You may want to adjust the position and scaling of _peoples as well.
     for (int i = 0; i < _peoples.size(); i++) {
-        // Adjust the position and scaling of _peoples[i] here
-        // window.draw(*_peoples[i].sprite);
-        // window.draw(*_peoples[i].text);
+        //set pos and scale of people to fit in room
+        for (int j = 0; j < _rooms.size(); j++) {
+            if (_peoples[i].room == _rooms[j].name) {
+                _peoples[i].x = _rooms[j].x + 10;
+                _peoples[i].y = _rooms[j].y + 10;
+            }
+        }
+        _peoples[i].sprite->setScale(0.5, 0.5);
+        _peoples[i].sprite->setPosition(_peoples[i].x, _peoples[i].y);
+        _peoples[i].text->setPosition(_peoples[i].x, _peoples[i].y);
+        window.draw(*_peoples[i].sprite);
+        window.draw(*_peoples[i].text);
     }
 }
 
@@ -115,4 +124,33 @@ void Graphics::createRoom(std::string name, int x, int y)
     room.sprite->setTexture(*room.texture);
     room.sprite->setPosition(room.x, room.y);
     _rooms.push_back(room);
+}
+
+void Graphics::createPeople(std::string name, std::string status, std::string room, int x, int y)
+{
+    people_t people;
+    people.name = name;
+    people.status = status;
+    people.room = room;
+    people.x = x;
+    people.y = y;
+    people.font = new sf::Font();
+    people.font->loadFromFile("Assets/OpenSans-Regular.ttf");
+    people.text = new sf::Text();
+    people.text->setFont(*people.font);
+    people.text->setString(people.name + " - " + people.status + " - " + people.room);
+    people.text->setCharacterSize(24);
+    people.text->setFillColor(sf::Color::White);
+    people.text->setPosition(people.x, people.y);
+    people.texture = new sf::Texture();
+    if (status == "Patient")
+        people.texture->loadFromFile("Assets/koalaPatient.png");
+    else if (status == "Doctor")
+        people.texture->loadFromFile("Assets/koalaDoctor.png");
+    else if (status == "Nurse")
+        people.texture->loadFromFile("Assets/koalaNurse.png");
+    people.sprite = new sf::Sprite();
+    people.sprite->setTexture(*people.texture);
+    people.sprite->setPosition(people.x, people.y);
+    _peoples.push_back(people);
 }
