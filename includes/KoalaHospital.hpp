@@ -13,7 +13,7 @@
 #include <vector>
 #include <utility>
 #include <thread>
-#include "Room.hpp"
+#include "Graphics.hpp"
 #include <mutex>
 
 class KoalaHospital {

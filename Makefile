@@ -17,6 +17,7 @@ SRC_FILES		=	KoalaHospital.cpp			\
 					Nurse.cpp					\
 					Room.cpp					\
 					Deases.cpp					\
+					Graphics.cpp				\
 
 SRC_FILES_MAIN	=	main.cpp			\
 
@@ -57,7 +58,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(OBJ_MAIN)
 	@$(PRNT) -e "\e[0;31m Compiling ${NAME}... \e[0m"
-	$(CC) -o $(NAME) -fno-stack-protector $(OBJ) $(OBJ_MAIN) -pthread
+	$(CC) -o $(NAME) -fno-stack-protector $(OBJ) $(OBJ_MAIN) -pthread -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 make_lib:
 	@$(PRNT) -e "\e[0;31m Making lib $(LIB_DIR)... \e[0m"
