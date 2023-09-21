@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 2023-09-04 07:05:08
  * @ Modified by: Samael
- * @ Modified time: 2023-09-20 07:57:12
+ * @ Modified time: 2023-09-22 06:43:03
  * @ Description:
  */
 
@@ -33,16 +33,21 @@ void Room::run()
 {
     usleep(1000000);
     if (_patients.size() > 0) {
-        if (_nurses[0].giveVaccin(_knownSymptoms, _patients[0]) == true) {  
+        if (_nurses[0].giveVaccin(_knownSymptoms, _patients[0]) == true) {
+            _graphics->deletePeople(_patients[0].getName(), "Patient", "Room " + std::to_string(_id));
+            _graphics->addText(_patients[0].getName() + " has been vaccinated", "Room " + std::to_string(_id));
             _patients.erase(_patients.begin());
-            std::cout << "Room " << _id << ": Patient vaccined" << std::endl;
             return;
-        }
+        } else
+            _graphics->addText(_patients[0].getName() + "'s vaccination failed", "Room " + std::to_string(_id));
         symptoms_t symp = _doctors[0].diagnose(_patients[0], _knownSymptoms);
         if (_nurses[0].giveDrug(symp, _patients[0]) == true) {  
+            _graphics->deletePeople(_patients[0].getName(), "Patient", "Room " + std::to_string(_id));
+            _graphics->addText(_patients[0].getName() + " has been vaccinated", "Room " + std::to_string(_id));
             _patients.erase(_patients.begin());
             std::cout << "Room " << _id << ": Patient cured" << std::endl;
-        }
+        } else
+            _graphics->addText(_patients[0].getName() + "'s drug failed", "Room " + std::to_string(_id));
     }
 }
 
@@ -50,6 +55,7 @@ void Room::addPatient(Patient &patient)
 {
     _patients.push_back(patient);
     _graphics->createPeople(patient.getName(), "Patient", "Room " + std::to_string(_id), 0, 0);
+    _graphics->addText(patient.getName() + " arrived", "Room " + std::to_string(_id));
     std::cout << "Room " << _id << ": Patient " << patient.getName() << " arrived" << std::endl;
 }
 

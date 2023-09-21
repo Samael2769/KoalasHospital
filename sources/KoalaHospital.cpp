@@ -14,6 +14,7 @@ KoalaHospital::KoalaHospital()
 {
     nbRooms = 2;
     roomIndex = 0;
+    srand(time(NULL));
 }
 
 KoalaHospital::~KoalaHospital()

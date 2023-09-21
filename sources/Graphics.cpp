@@ -2,17 +2,19 @@
  * @ Author: Samael
  * @ Create Time: 1970-01-01 09:00:00
  * @ Modified by: Samael
- * @ Modified time: 2023-09-21 23:17:28
+ * @ Modified time: 2023-09-22 06:47:39
  * @ Description:
  */
 
 #include "Graphics.hpp"
 #include <unistd.h>
 #include <cmath>
+#include <iostream>
 
 Graphics::Graphics()
 {
     _window = new sf::RenderWindow(sf::VideoMode(1000, 700), "Koalas Hospital");
+    _dt = 0;
 }
 
 Graphics::~Graphics()
@@ -21,6 +23,7 @@ Graphics::~Graphics()
 
 void Graphics::run()
 {
+    _clock.restart();
     while (_window->isOpen()) {
         while (_window->pollEvent(_event)) {
             if (_event.type == sf::Event::Closed)
@@ -79,10 +82,21 @@ void Graphics::draw(sf::RenderWindow &window)
         _rooms[i].text->setPosition(col * roomSizeX, row * roomSizeY);
         _rooms[i].x = col * roomSizeX;
         _rooms[i].y = row * roomSizeY;
+        if (_rooms[i].message->messages.size() > 0) {
+            if (_dt > 10000000000) {
+                _rooms[i].message->text->setString(_rooms[i].message->messages[0]);
+                _rooms[i].message->messages.erase(_rooms[i].message->messages.begin());
+                _dt = 0;
+            }
+        }
+        _rooms[i].message->text->setPosition(col * roomSizeX, row * roomSizeY + 100);
+
 
         // Draw the room sprite and text
         window.draw(*_rooms[i].sprite);
         window.draw(*_rooms[i].text);
+        window.draw(*_rooms[i].message->text);
+        _dt += _clock.getElapsedTime().asMicroseconds();
     }
 
     // You may want to adjust the position and scaling of _peoples as well.
@@ -106,7 +120,7 @@ void Graphics::draw(sf::RenderWindow &window)
         //scale depends on number of rooms
         _peoples[i].sprite->setScale(roomSizeX / 1500.0, roomSizeY / 800.0);
         _peoples[i].sprite->setPosition(_peoples[i].x, _peoples[i].y);
-        _peoples[i].text->setPosition(_peoples[i].x, _peoples[i].y);
+        _peoples[i].text->setPosition(_peoples[i].x + _peoples[i].sprite->getGlobalBounds().width / 2 - _peoples[i].text->getGlobalBounds().width / 2, _peoples[i].y);
         window.draw(*_peoples[i].sprite);
         window.draw(*_peoples[i].text);
     }
@@ -133,6 +147,15 @@ void Graphics::createRoom(std::string name, int x, int y)
     room.sprite = new sf::Sprite();
     room.sprite->setTexture(*room.texture);
     room.sprite->setPosition(room.x, room.y);
+    room.message = new text_t();
+    room.message->font = new sf::Font();
+    room.message->font->loadFromFile("Assets/OpenSans-Regular.ttf");
+    room.message->text = new sf::Text();
+    room.message->text->setFont(*room.message->font);
+    room.message->text->setString("Start");
+    room.message->text->setCharacterSize(24);
+    room.message->text->setFillColor(sf::Color::Black);
+    room.message->text->setPosition(room.x, room.y + 100);
     _rooms.push_back(room);
 }
 
@@ -163,4 +186,24 @@ void Graphics::createPeople(std::string name, std::string status, std::string ro
     people.sprite->setTexture(*people.texture);
     people.sprite->setPosition(people.x, people.y);
     _peoples.push_back(people);
+}
+
+void Graphics::deletePeople(std::string name, std::string status, std::string room)
+{
+    for (int i = 0; i < _peoples.size(); i++) {
+        if (_peoples[i].name == name && _peoples[i].status == status && _peoples[i].room == room) {
+            _peoples.erase(_peoples.begin() + i);
+            return;
+        }
+    }
+}
+
+void Graphics::addText(std::string text, std::string room)
+{
+    for (int i = 0; i < _rooms.size(); i++) {
+        if (_rooms[i].name == room) {
+            _rooms[i].message->messages.push_back(text);
+            return;
+        }
+    }
 }
