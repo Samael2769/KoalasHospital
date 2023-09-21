@@ -22,6 +22,7 @@ class KoalaHospital {
         ~KoalaHospital();
         void run();
         void startThread();
+        void patientThread();
     protected:
     private:
         int nbRooms;

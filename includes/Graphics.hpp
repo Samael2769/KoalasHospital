@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 1970-01-01 09:00:00
  * @ Modified by: Samael
- * @ Modified time: 2023-09-22 06:32:48
+ * @ Modified time: 2023-09-22 07:44:45
  * @ Description:
  */
 
@@ -59,4 +59,6 @@ class Graphics {
         sf::Time _time;
         //delta time
         float _dt;
+        int score;
+        text_t _score;
 };

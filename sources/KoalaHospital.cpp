@@ -33,13 +33,12 @@ void KoalaHospital::run()
         usleep(100);
         roomIndex++;
     }
-    patients.push_back(Patient("Patient 1"));
-    patients.push_back(Patient("Patient 2"));
-    patients.push_back(Patient("Patient 3"));
+    std::thread *patient_thread = new std::thread(&KoalaHospital::patientThread, this);
     _graphics->run();
     for (int i = 0; i < threads.size(); i++) {
         threads[i]->join();
     }
+    patient_thread->join();
 }
 
 void KoalaHospital::startThread()
@@ -57,5 +56,18 @@ void KoalaHospital::startThread()
         }
         mutex.unlock();
         room.run(); 
+    }
+}
+
+void KoalaHospital::patientThread()
+{
+    while (true) {
+        usleep(1000000);
+        mutex.lock();
+        if (rand() % 100 < 10) {
+            Patient patient("Patient " + std::to_string(rand() % 10000));
+            patients.push_back(patient);
+        }
+        mutex.unlock();
     }
 }

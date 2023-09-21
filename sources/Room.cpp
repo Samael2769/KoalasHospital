@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 2023-09-04 07:05:08
  * @ Modified by: Samael
- * @ Modified time: 2023-09-22 06:43:03
+ * @ Modified time: 2023-09-22 07:44:14
  * @ Description:
  */
 
@@ -43,7 +43,7 @@ void Room::run()
         symptoms_t symp = _doctors[0].diagnose(_patients[0], _knownSymptoms);
         if (_nurses[0].giveDrug(symp, _patients[0]) == true) {  
             _graphics->deletePeople(_patients[0].getName(), "Patient", "Room " + std::to_string(_id));
-            _graphics->addText(_patients[0].getName() + " has been vaccinated", "Room " + std::to_string(_id));
+            _graphics->addText(_patients[0].getName() + " has been cured", "Room " + std::to_string(_id));
             _patients.erase(_patients.begin());
             std::cout << "Room " << _id << ": Patient cured" << std::endl;
         } else

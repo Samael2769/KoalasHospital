@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 1970-01-01 09:00:00
  * @ Modified by: Samael
- * @ Modified time: 2023-09-22 06:47:39
+ * @ Modified time: 2023-09-22 07:45:52
  * @ Description:
  */
 
@@ -15,6 +15,15 @@ Graphics::Graphics()
 {
     _window = new sf::RenderWindow(sf::VideoMode(1000, 700), "Koalas Hospital");
     _dt = 0;
+    score = 0;
+    _score.font = new sf::Font();
+    _score.font->loadFromFile("Assets/OpenSans-Regular.ttf");
+    _score.text = new sf::Text();
+    _score.text->setFont(*_score.font);
+    _score.text->setString("Score: " + std::to_string(score));
+    _score.text->setCharacterSize(24);
+    _score.text->setFillColor(sf::Color::Black);
+    _score.text->setPosition(0, 0);
 }
 
 Graphics::~Graphics()
@@ -96,6 +105,8 @@ void Graphics::draw(sf::RenderWindow &window)
         window.draw(*_rooms[i].sprite);
         window.draw(*_rooms[i].text);
         window.draw(*_rooms[i].message->text);
+        _score.text->setString("Score: " + std::to_string(score));
+        window.draw(*_score.text);
         _dt += _clock.getElapsedTime().asMicroseconds();
     }
 
@@ -200,6 +211,9 @@ void Graphics::deletePeople(std::string name, std::string status, std::string ro
 
 void Graphics::addText(std::string text, std::string room)
 {
+    // if in text "vaccinated or cured" add 1 to score
+    if (text.find("vaccinated") != std::string::npos || text.find("cured") != std::string::npos)
+        score++;
     for (int i = 0; i < _rooms.size(); i++) {
         if (_rooms[i].name == room) {
             _rooms[i].message->messages.push_back(text);
