@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 2023-09-04 07:04:42
  * @ Modified by: Samael
- * @ Modified time: 2023-09-14 22:11:53
+ * @ Modified time: 2023-09-22 08:01:02
  * @ Description:
  */
 
@@ -11,6 +11,7 @@
 Patient::Patient(std::string const &name) : _name(name)
 {
     _deases = new Deases("Covid-19");
+    _life = 10;
 }
 
 Patient::~Patient()
@@ -38,6 +39,7 @@ bool Patient::takeDrug(symptoms_t symp)
         return (true);
     } else {
         std::cout << _name << " is still sick" << std::endl;
+        _life--;
         return (false);
     }
 }

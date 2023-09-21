@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 1970-01-01 09:00:00
  * @ Modified by: Samael
- * @ Modified time: 2023-09-22 07:45:52
+ * @ Modified time: 2023-09-22 07:58:40
  * @ Description:
  */
 
@@ -16,6 +16,7 @@ Graphics::Graphics()
     _window = new sf::RenderWindow(sf::VideoMode(1000, 700), "Koalas Hospital");
     _dt = 0;
     score = 0;
+    died = 0;
     _score.font = new sf::Font();
     _score.font->loadFromFile("Assets/OpenSans-Regular.ttf");
     _score.text = new sf::Text();
@@ -23,7 +24,16 @@ Graphics::Graphics()
     _score.text->setString("Score: " + std::to_string(score));
     _score.text->setCharacterSize(24);
     _score.text->setFillColor(sf::Color::Black);
-    _score.text->setPosition(0, 0);
+    //set position on the middle of the screen
+    _score.text->setPosition(_window->getSize().x / 2 - _score.text->getGlobalBounds().width / 2, 0);
+    _died.font = new sf::Font();
+    _died.font->loadFromFile("Assets/OpenSans-Regular.ttf");
+    _died.text = new sf::Text();
+    _died.text->setFont(*_died.font);
+    _died.text->setString("Died: " + std::to_string(died));
+    _died.text->setCharacterSize(24);
+    _died.text->setFillColor(sf::Color::Black);
+    _died.text->setPosition(_window->getSize().x / 2 - _died.text->getGlobalBounds().width / 2, 30);
 }
 
 Graphics::~Graphics()
@@ -107,6 +117,8 @@ void Graphics::draw(sf::RenderWindow &window)
         window.draw(*_rooms[i].message->text);
         _score.text->setString("Score: " + std::to_string(score));
         window.draw(*_score.text);
+        _died.text->setString("Died: " + std::to_string(died));
+        window.draw(*_died.text);
         _dt += _clock.getElapsedTime().asMicroseconds();
     }
 
@@ -214,6 +226,8 @@ void Graphics::addText(std::string text, std::string room)
     // if in text "vaccinated or cured" add 1 to score
     if (text.find("vaccinated") != std::string::npos || text.find("cured") != std::string::npos)
         score++;
+    if (text.find("died") != std::string::npos)
+        died++;
     for (int i = 0; i < _rooms.size(); i++) {
         if (_rooms[i].name == room) {
             _rooms[i].message->messages.push_back(text);

@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 1970-01-01 09:00:00
  * @ Modified by: Samael
- * @ Modified time: 2023-09-22 07:44:45
+ * @ Modified time: 2023-09-22 07:51:28
  * @ Description:
  */
 
@@ -61,4 +61,6 @@ class Graphics {
         float _dt;
         int score;
         text_t _score;
+        int died;
+        text_t _died;
 };

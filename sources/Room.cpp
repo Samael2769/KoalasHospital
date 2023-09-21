@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 2023-09-04 07:05:08
  * @ Modified by: Samael
- * @ Modified time: 2023-09-22 07:44:14
+ * @ Modified time: 2023-09-22 07:51:14
  * @ Description:
  */
 
@@ -46,8 +46,16 @@ void Room::run()
             _graphics->addText(_patients[0].getName() + " has been cured", "Room " + std::to_string(_id));
             _patients.erase(_patients.begin());
             std::cout << "Room " << _id << ": Patient cured" << std::endl;
-        } else
+        } else {
             _graphics->addText(_patients[0].getName() + "'s drug failed", "Room " + std::to_string(_id));
+            bool isDead = _patients[0].pingLife();
+            if (isDead == false) {
+                _graphics->deletePeople(_patients[0].getName(), "Patient", "Room " + std::to_string(_id));
+                _graphics->addText(_patients[0].getName() + " died", "Room " + std::to_string(_id));
+                _patients.erase(_patients.begin());
+                std::cout << "Room " << _id << ": Patient died" << std::endl;
+            }
+        }
     }
 }
 
