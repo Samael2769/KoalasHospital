@@ -2,7 +2,7 @@
  * @ Author: Samael
  * @ Create Time: 1970-01-01 09:00:00
  * @ Modified by: Samael
- * @ Modified time: 2023-09-20 08:00:03
+ * @ Modified time: 2023-09-21 23:17:28
  * @ Description:
  */
 
@@ -90,11 +90,21 @@ void Graphics::draw(sf::RenderWindow &window)
         //set pos and scale of people to fit in room
         for (int j = 0; j < _rooms.size(); j++) {
             if (_peoples[i].room == _rooms[j].name) {
-                _peoples[i].x = _rooms[j].x + 10;
-                _peoples[i].y = _rooms[j].y + 10;
+                int offset = 0;
+                if (_peoples[i].status == "Doctor")
+                    offset = 10;
+                else if (_peoples[i].status == "Nurse")
+                    offset = 200 + (i * 50);
+                else if (_peoples[i].status == "Patient")
+                    offset = 500 + (i * 20);
+                if (_rooms.size() > 2)
+                    offset /= 2;
+                _peoples[i].x = _rooms[j].x + offset;
+                _peoples[i].y = _rooms[j].y + 150;
             }
         }
-        _peoples[i].sprite->setScale(0.5, 0.5);
+        //scale depends on number of rooms
+        _peoples[i].sprite->setScale(roomSizeX / 1500.0, roomSizeY / 800.0);
         _peoples[i].sprite->setPosition(_peoples[i].x, _peoples[i].y);
         _peoples[i].text->setPosition(_peoples[i].x, _peoples[i].y);
         window.draw(*_peoples[i].sprite);
@@ -138,9 +148,9 @@ void Graphics::createPeople(std::string name, std::string status, std::string ro
     people.font->loadFromFile("Assets/OpenSans-Regular.ttf");
     people.text = new sf::Text();
     people.text->setFont(*people.font);
-    people.text->setString(people.name + " - " + people.status + " - " + people.room);
+    people.text->setString(people.name);
     people.text->setCharacterSize(24);
-    people.text->setFillColor(sf::Color::White);
+    people.text->setFillColor(sf::Color::Black);
     people.text->setPosition(people.x, people.y);
     people.texture = new sf::Texture();
     if (status == "Patient")
